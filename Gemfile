@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -32,8 +32,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group  :development ,  :test  do 
-  #gem  'sqlite3' ,  '1.3.8' 
+group :development ,  :test  do 
+  gem  'sqlite3' ,  '1.3.8' 
   gem  'rspec-rails' ,  '2.13.1' 
 	gem  'guard-rspec' ,  '2.5.0' 
   gem  'pry'
@@ -46,6 +46,11 @@ group  :development ,  :test  do
   gem  'cucumber-rails' ,  '1.4.0' ,  :require  =>  false 
   #gem  'database_cleaner' ,  github:  'bmabey/database_cleaner'
 end
+
+group :production do
+	gem 'pg' , '0.15.1'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
