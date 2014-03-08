@@ -3,8 +3,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
-# Use sqlite3 as the database for Active Record
-
+gem 'bootstrap-sass', '2.3.2.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -44,12 +43,17 @@ group :development ,  :test  do
   #gem  'childprocess', '0.3.6'
   gem  'factory_girl_rails' ,  '4.2.1' 
   gem  'cucumber-rails' ,  '1.4.0' ,  :require  =>  false 
+  gem  'capybara' ,  '2.1.0' 
   #gem  'database_cleaner' ,  github:  'bmabey/database_cleaner'
 end
 
 group :production do
 	gem 'pg' , '0.15.1'
 end
+
+gem 'devise'
+gem 'simple_form'
+gem 'fullcalendar-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

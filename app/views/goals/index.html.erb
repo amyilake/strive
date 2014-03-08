@@ -1,0 +1,22 @@
+<h2>Goal index</h2>
+
+<%= link_to("新增目標" , new_goal_path ,:class => "btn btn-info")%>
+
+
+<hr>
+
+<% @goals.each do |goal| %>
+	<div class="row">
+		<div class="span4">
+			<div class="well">
+				<%= goal.title %> |
+				<%= goal.description %> |
+				<%= link_to("進入", goal_path(goal.id)) %>
+			</div>
+		</div>
+	</div>
+<% end %>
+
+
+
+

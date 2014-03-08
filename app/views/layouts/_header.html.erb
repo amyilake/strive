@@ -1,0 +1,37 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="./index.html">Strive</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+           <li class="active">
+            <a href="#">Home</a>
+          </li>
+          <li class="">
+            <%= link_to( "Goals" , goals_path)%>
+          </li>
+          <li class="">
+            <a href="#">Scaffolding</a>
+          </li>
+          <li class="">
+            <a href="#">Base CSS</a>
+          </li>
+        </ul>
+        <ul class="nav pull-right">
+          <% if user_signed_in? %>
+            <li><%= link_to( current_user.name , "#")%></li>
+            <li><%= link_to("登出" , signout_path)%></li>
+          <% else %>
+            <li><%= link_to("登入" , signin_path)%></li>
+            <li><%= link_to("註冊" , signup_path)%></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
