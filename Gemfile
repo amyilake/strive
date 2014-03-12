@@ -54,6 +54,7 @@ end
 gem 'devise'
 gem 'simple_form'
 gem 'fullcalendar-rails'
+gem 'pry-rails', :group => :development
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

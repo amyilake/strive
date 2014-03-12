@@ -1,10 +1,5 @@
 
 <%= link_to("修改目標", edit_goal_path , :class =>"btn btn-success") %>
-<%= link_to('返回', goals_path) %>
-<hr>
-<pre>
-	TODO:
-	每個目標的月曆工作表
-	新增工作
-</pre>
+<%= link_to("月曆表", goal_schedules_path(@goal.id) , :class =>"btn btn-success") %>
+
 

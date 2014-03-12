@@ -5,7 +5,7 @@ class GoalsController < ApplicationController
 	end
 
 	def show
-		
+		@goal = Goal.find(params[:id])
 	end
 
 	def new
@@ -13,7 +13,7 @@ class GoalsController < ApplicationController
 	end
 
 	def create
-		@goal = current_user.goals.build(link_params)
+		@goal = current_user.goals.build(goal_params)
 		@goal.save
 
 		redirect_to goals_path
@@ -31,9 +31,13 @@ class GoalsController < ApplicationController
 		
 	end
 
+	def calendar	
+		@goal = Goal.find(params[:goal_id])
+	end
+
 	private 
 		
-		def link_params
+		def goal_params
 			params.require(:goal).permit(:title,:description,:user_id)
 		end
 end

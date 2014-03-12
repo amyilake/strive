@@ -1,0 +1,11 @@
+<%= simple_form_for [@goal ,@schedule] ,:html => { :id => 'event_form' } do |f| %>
+<div>
+	<%= f.input :title %>
+	<%= f.input :description %>
+	<%= f.input :color , collection: ['red','blue','green','gray']%>
+	<%= f.input :starttime , :as => :hidden %>
+	<%= f.input :endtime , :as => :hidden %>
+	<%= f.input :all_day , :as => :hidden %>
+	<%= f.button :submit , :class => "btn btn-success" %>
+</div>
+<% end %>
