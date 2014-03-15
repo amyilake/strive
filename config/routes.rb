@@ -7,18 +7,37 @@ Strive::Application.routes.draw do
     get "signout", to: "devise/sessions#destroy"
   end
 
-  get "goals/calendar"
+  #get "goals/calendar"
+  #get "goals/get_events"
+
+
+  get 'account/schedules' => "schedules#index"
+  get 'account/schedules/get_events' =>"schedules#get_events"
+  get 'account/schedules/new' =>"schedules#new_for_account"
+  post 'account/schedules/move' =>"schedules#move"
+  post 'account/schedules/resize' =>"schedules#resize"
+  
 
   resources :goals do
     resources :schedules do
       collection do
-        get  :calendar
-        post :move
-        post :resize
-        get :get_events
+         get  :calendar
+         post :move
+         post :resize
+         get :get_events
       end
     end
   end
+
+    resources :schedules do
+      collection do
+         get  :calendar
+         post :move
+         post :resize
+         get :get_events
+      end
+    end
+
 
   get "static_pages/home"
   # The priority is based upon order of creation: first created -> highest priority.

@@ -5,9 +5,11 @@ FactoryGirl.define do
     title "MyString"
     description "MyText"
     goal_id 1
+    user_id 1
     starttime "2014-03-09 17:07:51"
     endtime "2014-03-09 17:07:51"
     all_day false
     status 1
   end
+
 end

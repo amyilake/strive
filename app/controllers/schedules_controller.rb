@@ -1,12 +1,25 @@
 class SchedulesController < ApplicationController
 
+	before_action :login_required 
+
 	def index
-		@goal = Goal.find(params[:goal_id])
+		#@goal = Goal.find(params[:goal_id])
 	end
 
 	def new
 		@goal = Goal.find(params[:goal_id])
-		@schedule = @goal.schedules.build(:starttime => params[:starttime] ,
+		@schedule = current_user.schedules.build(:goal_id => params[:goal_id] ,
+																			:starttime => params[:starttime] ,
+		                                  :endtime => params[:endtime] ,
+		                                  :all_day => params[:all_day],
+		                                  :status => 1 )
+	  #binding.pry
+		render :json => { :form => render_to_string(:partial => 'edit_form') }
+	end
+
+	def new_for_account
+		@schedule = current_user.schedules.build(
+																			:starttime => params[:starttime] ,
 		                                  :endtime => params[:endtime] ,
 		                                  :all_day => params[:all_day],
 		                                  :status => 1 )
@@ -15,8 +28,7 @@ class SchedulesController < ApplicationController
 	end
 
 	def create
-		@goal = Goal.find(params[:goal_id])
-		@schedule = @goal.schedules.new(schedule_params)
+		@schedule = current_user.schedules.new(schedule_params)
 		#binding.pry
 
 		if @schedule.save
@@ -54,9 +66,17 @@ class SchedulesController < ApplicationController
 		render :nothing => true   
 	end
 
-	def get_events
-			@goal = Goal.find(params[:goal_id])
-	    @schedules = @goal.schedules.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime <= '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
+	def get_events		
+			# if have goal_id , find goal's schedules , else find user's schedules
+			#binding.pry
+			if params[:goal_id] != nil 
+				@goal = Goal.find(params[:goal_id])
+	   	  @schedules = @goal.schedules.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime <= '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
+			else
+				@user = current_user
+	    	@schedules = @user.schedules.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime <= '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
+			end
+
 	    schedules = [] 
 
 	    @schedules.each do |schedule|
@@ -89,7 +109,9 @@ class SchedulesController < ApplicationController
 
 	private
 		def schedule_params
-			params.require(:schedule).permit(:title,:description,:starttime,
+			#params[:user_id] = current_user.id
+
+			params.require(:schedule).permit(:goal_id,:user_id,:title,:description,:starttime,
 				                               :endtime,:status,:all_day,:color)
 		end
 

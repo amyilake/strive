@@ -25,8 +25,9 @@ function refetch_events_and_close_dialog() {
 }
 
 function createEvent(title,start,end,allDay){
+    //alert(window.location.href);
     jQuery.ajax({
-      url:  window.location.href+"/new",
+      url:  "schedules/new",
       data: 'title=' + title + '&starttime=' + start + '&endtime=' + end + '&all_day=' + allDay + '&authenticity_token=' + authenticity_token,
       success: function(data) {
         $('#event_desc').html(data['form']);
@@ -83,22 +84,6 @@ function deleteEvent(event_id, delete_all){
     success: refetch_events_and_close_dialog
   });
 }
-
-$(document).ready(function(){
-  $('#desc_dialog').on('submit', "#event_form", function(event) {
-    event.preventDefault();
-    $.ajax({
-      type: "POST",
-      data: $(this).serialize(),
-      url: $(this).attr('action'),
-      success: refetch_events_and_close_dialog,
-      error: handle_error
-    });
-    function handle_error(xhr) {
-      alert(xhr.responseText);
-    }
-  });
-});
 
 
 

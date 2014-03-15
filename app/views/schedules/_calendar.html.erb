@@ -23,7 +23,6 @@ authenticity_token = "<%= form_authenticity_token %>"
 
 $(document).ready(function() {
     // page is now ready, initialize the calendar...
-
     var calendar = $('#calendar').fullCalendar({
         // put your options and callbacks here
         selectable: true,
@@ -34,7 +33,7 @@ $(document).ready(function() {
               right: 'month,agendaWeek,agendaDay'
         },
         defaultView: 'agendaWeek',
-        height: 700,
+        height: 500,
         slotMinutes: 30,
 
         loading: function(bool){
@@ -44,9 +43,8 @@ $(document).ready(function() {
                   $('#loading').hide();
         },
         select: function(start, end, allDay) {
-            createEvent("new event",start,end,allDay);
-            
-            /*var title = prompt('Event Title:');
+              createEvent("new event",start,end,allDay);
+           /*var title = prompt('Event Title:');
             if (title) {
               newEvent(title,start,end,allDay); 
             }
@@ -79,8 +77,21 @@ $(document).ready(function() {
         },
         eventRender: function(event, element) { 
             element.find('.fc-event-title').append("<br/>" + event.description); 
-        } 
-        
+        }   
     })
+
+    $('#desc_dialog').on('submit', "#event_form", function(event) {
+      event.preventDefault();
+      $.ajax({
+        type: "POST",
+        data: $(this).serialize(),
+        url: $(this).attr('action'),
+        success: refetch_events_and_close_dialog,
+        error: handle_error
+      });
+      function handle_error(xhr) {
+        alert(xhr.responseText);
+      }
+    });
 });
 </script>

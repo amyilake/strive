@@ -1,8 +1,9 @@
-<%= simple_form_for [@goal ,@schedule] ,:html => { :id => 'event_form' } do |f| %>
+<%= simple_form_for [@goal,@schedule] ,:html => { :id => 'event_form' } do |f| %>
 <div>
 	<%= f.input :title %>
 	<%= f.input :description %>
 	<%= f.input :color , collection: ['red','blue','green','gray']%>
+	<%= f.input :goal_id ,:collection => current_user.goals , :include_blank => "(select if none)"%>
 	<%= f.input :starttime , :as => :hidden %>
 	<%= f.input :endtime , :as => :hidden %>
 	<%= f.input :all_day , :as => :hidden %>

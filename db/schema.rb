@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140312143618) do
+ActiveRecord::Schema.define(version: 20140312232615) do
 
   create_table "fullcalendar_engine_event_series", force: true do |t|
     t.integer  "frequency",  default: 1
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20140312143618) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "color"
+    t.integer  "user_id"
   end
 
   create_table "users", force: true do |t|

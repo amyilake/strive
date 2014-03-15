@@ -1,5 +1,7 @@
 class GoalsController < ApplicationController
 
+	before_action :login_required , :only => [ :show,:new , :create , :edit , :update , :destroy]
+
 	def index
 		@goals = Goal.all
 	end
@@ -24,15 +26,21 @@ class GoalsController < ApplicationController
 	end
 
 	def update
-		
+		@goal = current_user.goals.find(params[:id])
+		@goal.update(goal_params)
+		if @goal.save
+			redirect_to goal_path(@goal)
+		else
+			render :edit
+		end
 	end
 
 	def destroy
+		@goal = current_user.goals.find(params[:id])
 		
-	end
+		@goal.destroy
+		redirect_to goals_path
 
-	def calendar	
-		@goal = Goal.find(params[:goal_id])
 	end
 
 	private 

@@ -1,5 +1,5 @@
 
 <%= link_to("修改目標", edit_goal_path , :class =>"btn btn-success") %>
 <%= link_to("月曆表", goal_schedules_path(@goal.id) , :class =>"btn btn-success") %>
-
+<%= link_to("刪除目標", goal_path(@goal.id) ,method: :delete) %>
 
