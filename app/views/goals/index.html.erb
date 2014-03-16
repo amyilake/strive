@@ -8,7 +8,8 @@
 <% @goals.each do |goal| %>
 	<div class="row">
 		<div class="span4">
-			<div class="well">
+			<div class="well" style="border-width:2px; border-style:solid;
+																border-color:<%= goal.color %>">
 				<%= goal.title %> |
 				<%= truncate(goal.description , length: 20)  %>
 				<% if current_user && goal.editable_by?(current_user) %> |

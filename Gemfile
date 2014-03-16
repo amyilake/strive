@@ -49,12 +49,15 @@ end
 
 group :production do
 	gem 'pg' , '0.15.1'
+  gem 'rails_12factor'
 end
 
 gem 'devise'
 gem 'simple_form'
 gem 'fullcalendar-rails'
 gem 'pry-rails', :group => :development
+gem 'jquery-minicolors-rails'
+gem 'jquery-turbolinks'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

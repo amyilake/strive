@@ -7,6 +7,7 @@ class SchedulesController < ApplicationController
 	end
 
 	def new
+
 		@goal = Goal.find(params[:goal_id])
 		@schedule = current_user.schedules.build(:goal_id => params[:goal_id] ,
 																			:starttime => params[:starttime] ,
@@ -39,19 +40,18 @@ class SchedulesController < ApplicationController
 	end
 
 	def edit
-		@goal = Goal.find(params[:goal_id])
-		@schedule = @goal.schedules.find(params[:id])
+		
+		@schedule = current_user.schedules.find(params[:id])
     render :json => { :form => render_to_string(:partial => 'edit_form') }	
 	end
 
 	def update
-		@goal = Goal.find(params[:goal_id])
 		@schedule = Schedule.find_by_id(params[:id])
     @schedule.update(schedule_params)
     #binding.pry
 		if @schedule.save
-			redirect_to goal_schedules_path(@goal.id)
-		  #render :nothing => true
+			#redirect_to goal_schedules_path(@goal.id)
+		  render :nothing => true
 	    else
 	     render :text => event.errors.full_messages.to_sentence, :status => 422
 		end 
@@ -68,7 +68,7 @@ class SchedulesController < ApplicationController
 
 	def get_events		
 			# if have goal_id , find goal's schedules , else find user's schedules
-			#binding.pry
+			
 			if params[:goal_id] != nil 
 				@goal = Goal.find(params[:goal_id])
 	   	  @schedules = @goal.schedules.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime <= '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
@@ -78,13 +78,20 @@ class SchedulesController < ApplicationController
 			end
 
 	    schedules = [] 
-
+	    
 	    @schedules.each do |schedule|
-	      schedules << {:description => schedule.description ,:color =>schedule.color ,
+	    	#if schedule in goal and schedule not has own color ,use goal color
+	    	if schedule.goal != nil && schedule.color == nil
+	    		schedule_color = schedule.goal.color
+	    	else
+	    		schedule_color = schedule.color
+	    	end
+	      schedules << {:description => schedule.description ,:color => schedule_color ,
 	      	            :title => schedule.title , :allDay => schedule.all_day ,
 	      	            :id => schedule.id, :start => "#{schedule.starttime.iso8601}",
 	      	            :end => "#{schedule.endtime.iso8601}" }
 	    end
+	    #binding.pry
 	    render :text => schedules.to_json
 	end
 

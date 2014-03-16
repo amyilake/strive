@@ -10,12 +10,15 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 //= require jquery
+//= require jquery.turbolinks  
 //= require jquery_ujs
-//= require turbolinks
+//= require turbolinks				
 //= require bootstrap
 //= require_tree .
 //= require fullcalendar
-//= require goal_calendar
-//= jquery-ui-1.10.3.custom.min
-
+//= require schedule_calendar
+//= require jquery-ui-1.10.3.custom.min
+//= require jquery.minicolors
+//= require jquery.minicolors.simple_form
