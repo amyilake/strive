@@ -8,6 +8,7 @@ class GoalsController < ApplicationController
 
 	def show
 		@goal = Goal.find(params[:id])
+		@schedules = @goal.schedules
 	end
 
 	def new

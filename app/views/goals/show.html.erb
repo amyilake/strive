@@ -2,4 +2,29 @@
 <%= link_to("修改目標", edit_goal_path , :class =>"btn btn-success") %>
 <%= link_to("月曆表", goal_schedules_path(@goal.id) , :class =>"btn btn-success") %>
 <%= link_to("刪除目標", goal_path(@goal.id) ,method: :delete) %>
+<hr>	
+<div class = "well">
+	<table class="table table-condensed table-hover">
+		<tbody>
+			<tr class="warning">
+				<td>行程</td>
+				<td>描述</td>
+				<td>開始時間</td>
+				<td>結束時間</td>
+			</tr>
+		<% @schedules.each do |schedule| %>
+			<tr>
+				<td><%= schedule.title %></td>
+				<td><%= schedule.description %></td>
+				<td><%= schedule.starttime.to_time.strftime('%Y-%m-%d %H:%M') %></td>
+				<td><%= schedule.endtime.to_time.strftime('%Y-%m-%d %H:%M') %></td>
+			</tr>
+		<% end%>
+		</tbody>
+	</table>
+</div>
+
+<%= link_to('返回', goals_path ,:class => "btn btn-info") %>
+
+
 

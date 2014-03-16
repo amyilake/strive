@@ -5,9 +5,9 @@
 <% end %>
 <hr>
 
-<% @goals.each do |goal| %>
-	<div class="row">
-		<div class="span4">
+<div class="row">
+  <% @goals.each do |goal| %>
+		<div class="span4 ">
 			<div class="well" style="border-width:2px; border-style:solid;
 																border-color:<%= goal.color %>">
 				<%= goal.title %> |
@@ -17,8 +17,8 @@
 				<% end %>
 			</div>
 		</div>
-	</div>
-<% end %>
+	<% end %>
+</div>
 
 
 
