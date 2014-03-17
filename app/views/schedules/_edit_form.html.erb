@@ -2,6 +2,7 @@
 <div>
 	<%= f.input :title %>
 	<%= f.input :description %>
+	<%= f.input :done , :as => :boolean %>
 	<!--<%= f.input :color , :as => :hidden %>-->
 	<%= f.input :goal_id ,:collection => current_user.goals , :include_blank => "(select if none)"%>
 	<%= f.input :starttime , :as => :hidden %>

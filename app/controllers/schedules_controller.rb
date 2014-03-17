@@ -3,7 +3,15 @@ class SchedulesController < ApplicationController
 	before_action :login_required 
 
 	def index
-		#@goal = Goal.find(params[:goal_id])
+		if params[:goal_id] != nil 
+			@goal = Goal.find(params[:goal_id])
+			render "index_for_calendar"
+		end
+
+		@schedules = current_user.schedules.order(:starttime)
+	end
+
+	def index_for_account
 	end
 
 	def new
@@ -119,7 +127,7 @@ class SchedulesController < ApplicationController
 			#params[:user_id] = current_user.id
 
 			params.require(:schedule).permit(:goal_id,:user_id,:title,:description,:starttime,
-				                               :endtime,:status,:all_day,:color)
+				                               :endtime,:status,:all_day,:color,:done)
 		end
 
 end

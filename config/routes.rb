@@ -11,7 +11,7 @@ Strive::Application.routes.draw do
   #get "goals/get_events"
 
   # make all routes of account redirect to schedule
-  get 'account/schedules' => "schedules#index"
+  get 'account/schedules' => "schedules#index_for_account"
   get 'account/schedules/get_events' =>"schedules#get_events"
   get 'account/schedules/new' =>"schedules#new_for_account"
   post 'account/schedules/move' =>"schedules#move"

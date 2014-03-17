@@ -1,5 +1,5 @@
 
-
+<div></div>
 <div>
   <div id='calendar'>
   </div>
@@ -21,9 +21,13 @@
 
 authenticity_token = "<%= form_authenticity_token %>"
 
+    var firstHour = new Date().getUTCHours()+8;
+    if (firstHour>=24)
+      firstHour=firstHour-24;
     // page is now ready, initialize the calendar...
     var calendar = $('#calendar').fullCalendar({
         // put your options and callbacks here
+        firstHour: firstHour, 
         selectable: true,
         editable: true,
         header: {
@@ -42,33 +46,27 @@ authenticity_token = "<%= form_authenticity_token %>"
                   $('#loading').hide();
         },
         select: function(start, end, allDay) {
-              createEvent("new event",start,end,allDay);
-           /*var title = prompt('Event Title:');
-            if (title) {
-              newEvent(title,start,end,allDay); 
-            }
-            calendar.fullCalendar('unselect');*/
-            
+              createEvent("new event",start,end,allDay);            
         },
         events: "schedules/get_events",
         timeFormat: 'h:mm t{ - h:mm t} ',
         dragOpacity: "0.5",
+        eventMouseover: function(calEvent, jsEvent ,view){
+          savBg = $(this).css("background-color");
+          savClr = $(this).css("color");
+          $(this).css({ color:"#ffff00" , backgroundColor:"#000000"});
+          $(this).fadeTo('slow',.95);
+        },
+        eventMouseout: function(calEvent, jsEvent ,view){
+          $(this).css({ color:savClr , backgroundColor:savBg});
+          $(this).fadeTo('slow',1);
+        },
         eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
-//              if (confirm("Are you sure about this change?")) {
                   moveEvent(event, dayDelta, minuteDelta, allDay);
-//              }
-//              else {
-//                  revertFunc();
-//              }
         },
           
         eventResize: function(event, dayDelta, minuteDelta, revertFunc){
-//              if (confirm("Are you sure about this change?")) {
                   resizeEvent(event, dayDelta, minuteDelta);
-//              }
-//              else {
-//                  revertFunc();
-//              }
         },
           
         eventClick: function(event, jsEvent, view){
@@ -76,7 +74,7 @@ authenticity_token = "<%= form_authenticity_token %>"
         },
         eventRender: function(event, element) { 
             element.find('.fc-event-title').append("<br/>" + event.description); 
-        }   
+        }
     })
 
     $('#desc_dialog').on('submit', "#event_form", function(event) {
