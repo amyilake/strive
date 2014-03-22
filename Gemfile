@@ -58,6 +58,8 @@ gem 'fullcalendar-rails'
 gem 'pry-rails', :group => :development
 gem 'jquery-minicolors-rails'
 gem 'jquery-turbolinks'
+gem 'morrisjs-rails'
+gem 'raphael-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

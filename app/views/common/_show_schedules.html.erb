@@ -20,3 +20,28 @@
 		</tbody>
 	</table>
 </div>
+
+<div class ="well ">
+	<div class ="tabbable">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab1_line" data-toggle="tab">Line</a></li>
+			<li><a href="#tab2_bar" data-toggle="tab">Bar</a></li>
+			<li><a href="#tab3_donut" data-toggle="tab">Donut</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab1_line">
+				<%= content_tag :div, "", id: "schedules_chart_line", data: {schedules: schedules_chart_data(current_user) , goals: current_user.goals} %>
+			</div>
+			<div class="tab-pane active" id="tab2_bar">
+				<%= content_tag :div, "", id: "schedules_chart_bar", data: {schedules: schedules_chart_data(current_user) , goals: current_user.goals} %>
+			</div>
+			<div class="tab-pane active" id="tab3_donut">
+				<%= content_tag :div, "", id: "schedules_chart_donut", data: {schedules: schedules_chart_donut_data(current_user)} %>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+

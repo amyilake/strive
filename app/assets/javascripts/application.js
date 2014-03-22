@@ -22,3 +22,5 @@
 //= require jquery-ui-1.10.3.custom.min
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form
+//= require raphael
+//= require morris

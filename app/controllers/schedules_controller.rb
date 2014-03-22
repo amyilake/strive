@@ -1,6 +1,7 @@
 class SchedulesController < ApplicationController
 
 	before_action :login_required 
+	helper SchedulesHelper
 
 	def index
 		if params[:goal_id] != nil 
@@ -21,7 +22,8 @@ class SchedulesController < ApplicationController
 																			:starttime => params[:starttime] ,
 		                                  :endtime => params[:endtime] ,
 		                                  :all_day => params[:all_day],
-		                                  :status => 1 )
+		                                  :hours => '0.5' ,
+		                                  :status => '1' )
 	  #binding.pry
 		render :json => { :form => render_to_string(:partial => 'edit_form') }
 	end
@@ -31,7 +33,8 @@ class SchedulesController < ApplicationController
 																			:starttime => params[:starttime] ,
 		                                  :endtime => params[:endtime] ,
 		                                  :all_day => params[:all_day],
-		                                  :status => 1 )
+		                                  :hours => '0.5' ,
+		                                  :status => '1' )
 	  #binding.pry
 		render :json => { :form => render_to_string(:partial => 'edit_form') }
 	end
@@ -117,7 +120,9 @@ class SchedulesController < ApplicationController
 	    @schedule = Schedule.find_by_id params[:id]
 	    if @schedule
 	      @schedule.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@schedule.endtime))
+	      @schedule.hours += (params[:minute_delta].to_f)/60
 	      @schedule.save
+
 	    end    
 	    render :nothing => true
 	end
@@ -126,7 +131,7 @@ class SchedulesController < ApplicationController
 		def schedule_params
 			#params[:user_id] = current_user.id
 
-			params.require(:schedule).permit(:goal_id,:user_id,:title,:description,:starttime,
+			params.require(:schedule).permit(:hours,:goal_id,:user_id,:title,:description,:starttime,
 				                               :endtime,:status,:all_day,:color,:done)
 		end
 
