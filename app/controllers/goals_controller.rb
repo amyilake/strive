@@ -10,7 +10,7 @@ class GoalsController < ApplicationController
 		@goal = Goal.find(params[:id])
 		@schedules = @goal.schedules
 		@chart = SchedulePresenter.new(:user => current_user).chart
-		gon.products = @chart
+		#gon.products = @chart
 	end
 
 	def new
