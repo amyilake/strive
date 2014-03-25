@@ -29,7 +29,7 @@ class SchedulePresenter
    def get_user_goals_schedules_hours_sum(h_starttime,date)
       user.goals.each do |goal|
         h_goal_schedule_hours={
-          goal.title => goal.schedules.where("date(starttime) == ?", date).sum(:hours),
+          goal.title => goal.schedules.where("date(starttime) = ?", date).sum(:hours),
         }
         h_starttime=h_starttime.merge(h_goal_schedule_hours) 
       end
