@@ -10,7 +10,6 @@ class SchedulesController < ApplicationController
 		end
 		@chart = SchedulePresenter.new(:user => current_user).chart
 		@chart_donut = SchedulePresenter.new(:user => current_user).chart_donut
-		gon.products = @chart_donut
 		@schedules = current_user.schedules.order(:starttime)
 	end
 
