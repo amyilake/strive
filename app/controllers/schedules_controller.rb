@@ -8,7 +8,9 @@ class SchedulesController < ApplicationController
 			@goal = Goal.find(params[:goal_id])
 			render "index_for_calendar"
 		end
-
+		@chart = SchedulePresenter.new(:user => current_user).chart
+		@chart_donut = SchedulePresenter.new(:user => current_user).chart_donut
+		gon.products = @chart_donut
 		@schedules = current_user.schedules.order(:starttime)
 	end
 

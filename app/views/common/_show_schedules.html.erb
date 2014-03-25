@@ -21,7 +21,8 @@
 	</table>
 </div>
 
-<div class ="well ">
+<div class ="well ">	
+
 	<div class ="tabbable">
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#tab1_line" data-toggle="tab">Line</a></li>
@@ -30,18 +31,26 @@
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="tab1_line">
-				<%= content_tag :div, "", id: "schedules_chart_line", data: {schedules: schedules_chart_data(current_user) , goals: current_user.goals} %>
+				<%= content_tag :div, "", id: "schedules_chart_line", data: {schedules: @chart , goals: current_user.goals} %>
 			</div>
 			<div class="tab-pane active" id="tab2_bar">
-				<%= content_tag :div, "", id: "schedules_chart_bar", data: {schedules: schedules_chart_data(current_user) , goals: current_user.goals} %>
+				<%= content_tag :div, "", id: "schedules_chart_bar", data: {schedules: @chart , goals: current_user.goals} %>
 			</div>
 			<div class="tab-pane active" id="tab3_donut">
-				<%= content_tag :div, "", id: "schedules_chart_donut", data: {schedules: schedules_chart_donut_data(current_user)} %>
+				<%= content_tag :div, "", id: "schedules_chart_donut", data: 
+				{schedules: @chart_donut} %>
 			</div>
 		</div>
 	</div>
 </div>
 
+<script type="text/javascript" >
+	MorrisLine();
+	MorrisBar();
+	MorrisDonut();
+
+
+</script>
 
 
 

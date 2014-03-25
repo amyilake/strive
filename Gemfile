@@ -31,6 +31,20 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+  gem 'xray-rails'
+  gem 'quiet_assets'
+  gem 'pry-rails'
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem 'meta_request'
+  gem 'annotate', ">=2.6.0"
+  gem 'guard'
+  gem 'guard-livereload', require: false
+  gem 'timecop'
+  gem 'gon'
+end
+
 group :development ,  :test  do 
   gem  'sqlite3' ,  '1.3.8' 
   gem  'rspec-rails' ,  '2.13.1' 
@@ -55,7 +69,6 @@ end
 gem 'devise'
 gem 'simple_form'
 gem 'fullcalendar-rails'
-gem 'pry-rails', :group => :development
 gem 'jquery-minicolors-rails'
 gem 'jquery-turbolinks'
 gem 'morrisjs-rails'

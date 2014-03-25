@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-jQuery ->
+@MorrisLine = ->
   Morris.Line
     element: 'schedules_chart_line'
     data: $('#schedules_chart_line').data('schedules')
@@ -11,7 +11,8 @@ jQuery ->
     labels: labels($('#schedules_chart_line').data('goals'))
 
 
-jQuery ->
+
+@MorrisBar= ->
   Morris.Bar
     element: 'schedules_chart_bar'
     data: $('#schedules_chart_bar').data('schedules')
@@ -19,11 +20,10 @@ jQuery ->
     ykeys: ykeys($('#schedules_chart_bar').data('goals'))
     labels: labels($('#schedules_chart_bar').data('goals'))
 
-jQuery ->
-  alert($('#schedules_chart_donut').data('schedules').toSource())
-  Morris.Donut
-    element: 'schedules_chart_donut'
-    data: $('#schedules_chart_donut').data('schedules')
+@MorrisDonut= ->
+   Morris.Donut
+     element: 'schedules_chart_donut'
+     data: $('#schedules_chart_donut').data('schedules')
 
 labels = (goals) -> 
          for i in [0...goals.length]

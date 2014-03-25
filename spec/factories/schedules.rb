@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: schedules
+#
+#  id          :integer          not null, primary key
+#  title       :string(255)
+#  description :text
+#  goal_id     :integer
+#  starttime   :datetime
+#  endtime     :datetime
+#  all_day     :boolean          default(FALSE)
+#  status      :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#  color       :string(255)
+#  user_id     :integer
+#  done        :boolean          default(FALSE)
+#  hours       :float
+#
+
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do

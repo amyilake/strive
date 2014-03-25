@@ -1,10 +1,11 @@
 module SchedulesHelper
 	
 	def schedules_chart_data user	
-		(2.weeks.ago.to_date..Date.today).map do |date|
+		(1.weeks.ago.to_date..Date.today).map do |date|
 			h1={
 				:starttime => date
 		  }
+
 			user.goals.each do |goal|
 				h2={
 					goal.title => goal.schedules.where("date(starttime) == ?", date).sum(:hours),
