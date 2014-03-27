@@ -1,8 +1,36 @@
 class SchedulePresenter
-  attr_reader :user
+	attr_reader :user
+  attr_reader :goal
+  attr_reader :find_schedule
 
-  def initialize(user: user)
+  def initialize(user: user , goal: goal)
     @user = user
+    @goal = goal
+
+    if goal != nil
+      @find_schedule = goal
+    else
+      @find_schedule = user
+    end
+
+  end
+
+  def today_data()
+      today_schedules = find_schedule.schedules.where("date(starttime) = ?", Date.today).order(:starttime)
+  end
+
+  def next_week_data
+    next_week_schedules = find_schedule.schedules.where("date(starttime) > ? and date(starttime) <= ?",
+     Date.today , Date.today+7.days).order(:starttime)
+  end
+
+  def past_data
+    past_schedules = find_schedule.schedules.where("starttime < ? ",Time.now).order(:starttime)
+    
+  end
+
+  def future_data
+    past_schedules = find_schedule.schedules.where("starttime > ? ",Time.now).order(:starttime)
   end
 
   def chart    
@@ -13,7 +41,6 @@ class SchedulePresenter
       }
       h_all=get_user_goals_schedules_hours_sum(h_starttime,date)
     end
-  
   end
 
   def chart_donut
@@ -23,7 +50,6 @@ class SchedulePresenter
       }
     end
   end
-
   
   private
    def get_user_goals_schedules_hours_sum(h_starttime,date)

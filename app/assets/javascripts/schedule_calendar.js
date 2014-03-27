@@ -1,8 +1,4 @@
 
-
-
-
-
 function moveEvent(event, dayDelta, minuteDelta, allDay){
 
     jQuery.ajax({

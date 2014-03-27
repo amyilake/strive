@@ -1,15 +1,22 @@
 class SchedulesController < ApplicationController
 
 	before_action :login_required 
-	helper SchedulesHelper
-
+	
 	def index
 		if params[:goal_id] != nil 
 			@goal = Goal.find(params[:goal_id])
 			render "index_for_calendar"
 		end
-		@chart = SchedulePresenter.new(:user => current_user).chart
-		@chart_donut = SchedulePresenter.new(:user => current_user).chart_donut
+		
+		@schedulePresenter = SchedulePresenter.new(:user => current_user)
+		@chart = @schedulePresenter.chart
+		@chart_donut = @schedulePresenter.chart_donut
+		
+		@today_schedules = @schedulePresenter.today_data
+		@next_week_schedules = @schedulePresenter.next_week_data
+		@past_schedules = @schedulePresenter.past_data
+		@future_schedules = @schedulePresenter.future_data
+		
 		@schedules = current_user.schedules.order(:starttime)
 	end
 

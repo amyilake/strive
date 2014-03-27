@@ -9,7 +9,14 @@ class GoalsController < ApplicationController
 	def show
 		@goal = Goal.find(params[:id])
 		@schedules = @goal.schedules
-		@chart = SchedulePresenter.new(:user => current_user).chart
+		
+		@schedulePresenter = SchedulePresenter.new(:user => current_user ,:goal => @goal)
+		@chart = @schedulePresenter.chart
+		@today_schedules = @schedulePresenter.today_data
+		@next_week_schedules = @schedulePresenter.next_week_data
+		@past_schedules = @schedulePresenter.past_data
+		@future_schedules = @schedulePresenter.future_data
+		#binding.pry
 		#gon.products = @chart
 	end
 

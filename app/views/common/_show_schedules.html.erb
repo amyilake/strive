@@ -1,28 +1,36 @@
-<div class = "well">
-	<table class="table table-condensed table-hover">
-		<tbody>
-			<tr class="warning">
-				<td>行程</td>
-				<td>描述</td>
-				<td>時數(小時)</td>
-				<td>開始時間</td>
-				<td>結束時間</td>
-			</tr>
-		<% @schedules.each do |schedule| %>
-			<tr>
-				<td><%= schedule.title %></td>
-				<td><%= truncate(schedule.description , length: 20) %></td>
-				<td><%= (schedule.endtime - schedule.starttime)/3600 %></td>
-				<td><%= schedule.starttime.strftime('%Y-%m-%d %H:%M') %></td>
-				<td><%= schedule.endtime.strftime('%Y-%m-%d %H:%M') %></td>
-			</tr>
-		<% end%>
-		</tbody>
-	</table>
+
+<div class ="well ">
+	<div class ="tabbable">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab1_today" data-toggle="tab">Today</a></li>
+			<li><a href="#tab2_next_week" data-toggle="tab">Next_Week</a></li>
+			<li><a href="#tab3_future" data-toggle="tab">Future</a></li>
+			<li><a href="#tab4_past" data-toggle="tab">Past</a></li>
+			<li><a href="#tab5_all" data-toggle="tab">All</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab1_today">
+					<%= render '/common/schedules_data' , custom_schedules: @today_schedules  %>
+			</div>
+			<div class="tab-pane" id="tab2_next_week">
+					<%= render '/common/schedules_data' , custom_schedules: @next_week_schedules  %>
+			</div>
+			<div class="tab-pane" id="tab3_future">
+					<%= render '/common/schedules_data' , custom_schedules: @future_schedules  %>
+			</div>
+			<div class="tab-pane" id="tab4_past">
+					<%= render '/common/schedules_data' , custom_schedules: @past_schedules  %>
+			</div>
+			<div class="tab-pane" id="tab5_all">
+					<%= render '/common/schedules_data' , custom_schedules: @schedules  %>
+			</div>
+		</div>
+	</div>
 </div>
 
-<div class ="well ">	
 
+
+<div class ="well ">	
 	<div class ="tabbable">
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#tab1_line" data-toggle="tab">Line</a></li>
@@ -45,6 +53,10 @@
 </div>
 
 <script type="text/javascript" >
+	$('.nav-tabs > li ').hover( function(){
+        $(this).find('a').tab('show');
+   });
+
 	MorrisLine();
 	MorrisBar();
 	MorrisDonut();

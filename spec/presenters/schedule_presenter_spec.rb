@@ -4,6 +4,13 @@ describe SchedulePresenter do
   let(:user) { create(:user) }
   let(:goal) { create(:goal , :owner => user)}
   let(:schedule) {create(:schedule ,:goal => goal, :hours => 1 ,:starttime =>7.days.ago.to_date )}
+  let(:schedule_today_before_now) {create(:schedule ,:goal => goal, :hours => 1 ,:starttime =>DateTime.now-1.minutes )}
+  let(:schedule_today_after_now) {create(:schedule ,:goal => goal, :hours => 1 ,:starttime =>DateTime.now+1.minutes )}
+  let(:schedule_next_week) {create(:schedule ,:goal => goal, :hours => 1 ,:starttime =>(DateTime.now+5.days) )}
+  let(:schedule_past){create(:schedule ,:goal => goal, :hours => 1 ,:starttime =>(DateTime.now-5.days) )}
+  let(:schedule_future){create(:schedule ,:goal => goal, :hours => 1 ,:starttime =>(DateTime.now+10.days) )}
+  
+
 
   context '#chart' do
     it 'normal when only 1 goal ,1 schedules should return expected hash' do
@@ -58,4 +65,30 @@ describe SchedulePresenter do
     end
   end
 
+  context '#data' do
+    
+    it "today data" do
+      expected = [schedule_today_before_now,schedule_today_after_now]       
+      result = SchedulePresenter.new(:user => user).today_data 
+      result.should == expected
+    end
+
+    it "next week data" do
+      expected = [schedule_next_week]       
+      result = SchedulePresenter.new(:user => user).next_week_data 
+      result.should == expected
+    end
+
+    it "past data" do
+      expected = [schedule_today_before_now,schedule_today_before_now]       
+      result = SchedulePresenter.new(:user => user).past_data 
+      result.should == expected
+    end
+
+    it "future data" do
+      expected = [schedule_future]       
+      result = SchedulePresenter.new(:user => user).future_data 
+      result.should == expected
+    end
+  end
 end

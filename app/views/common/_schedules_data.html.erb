@@ -1,0 +1,22 @@
+<table class="table table-condensed table-hover">
+	<tbody>
+		<tr class="warning">
+			<td>行程</td>
+			<td>描述</td>
+			<td>時數(小時)</td>
+			<td>開始時間</td>
+			<td>結束時間</td>
+		</tr>
+	<% if custom_schedules != nil%>
+		<% custom_schedules.each do |schedule| %>
+			<tr>
+				<td><%= schedule.title %></td>
+				<td><%= truncate(schedule.description , length: 20) %></td>
+				<td><%= (schedule.endtime - schedule.starttime)/3600 %></td>
+				<td><%= schedule.starttime.strftime('%Y-%m-%d %H:%M') %></td>
+				<td><%= schedule.endtime.strftime('%Y-%m-%d %H:%M') %></td>
+			</tr>
+		<% end%>
+	<% end %>	
+	</tbody>
+</table>
