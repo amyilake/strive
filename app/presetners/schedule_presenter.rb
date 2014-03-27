@@ -15,7 +15,11 @@ class SchedulePresenter
 
   end
 
-  def today_data()
+  def today_task_num
+    today_schedules_num = find_schedule.schedules.where("date(starttime) = ?", Date.today).count 
+  end
+
+  def today_data
       today_schedules = find_schedule.schedules.where("date(starttime) = ?", Date.today).order(:starttime)
   end
 

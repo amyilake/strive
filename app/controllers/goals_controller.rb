@@ -9,13 +9,8 @@ class GoalsController < ApplicationController
 	def show
 		@goal = Goal.find(params[:id])
 		@schedules = @goal.schedules
+		get_schedules_data_chart
 		
-		@schedulePresenter = SchedulePresenter.new(:user => current_user ,:goal => @goal)
-		@chart = @schedulePresenter.chart
-		@today_schedules = @schedulePresenter.today_data
-		@next_week_schedules = @schedulePresenter.next_week_data
-		@past_schedules = @schedulePresenter.past_data
-		@future_schedules = @schedulePresenter.future_data
 		#binding.pry
 		#gon.products = @chart
 	end
@@ -57,5 +52,14 @@ class GoalsController < ApplicationController
 		
 		def goal_params
 			params.require(:goal).permit(:title,:description,:user_id,:color)
+		end
+
+		def get_schedules_data_chart
+			@schedulePresenter = SchedulePresenter.new(:user => current_user ,:goal => @goal)
+			@chart = @schedulePresenter.chart
+			@today_schedules = @schedulePresenter.today_data
+			@next_week_schedules = @schedulePresenter.next_week_data
+			@past_schedules = @schedulePresenter.past_data
+			@future_schedules = @schedulePresenter.future_data
 		end
 end

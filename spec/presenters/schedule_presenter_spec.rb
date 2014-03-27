@@ -80,7 +80,7 @@ describe SchedulePresenter do
     end
 
     it "past data" do
-      expected = [schedule_today_before_now,schedule_today_before_now]       
+      expected = [schedule_today_before_now]
       result = SchedulePresenter.new(:user => user).past_data 
       result.should == expected
     end

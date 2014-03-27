@@ -6,20 +6,26 @@
 <% end %>
 <hr>
 
+
+
 <div class="row">
   <% @goals.each do |goal| %>
 		<div class="span4 ">
-				<div class="well" style="border-width:2px; border-style:solid;
+				<div class="well" style="border-width:3px; border-style:solid;
 																	border-color:<%= goal.color %>">
 					<%= goal.title %> |
 					<%= truncate(goal.description , length: 20)  %>
 					<% if current_user && goal.editable_by?(current_user) %> |
 						<%= link_to("進入", goal_path(goal.id)) %>
 					<% end %>
+					<br>
+					today <strong><%= SchedulePresenter.new(:user => current_user ,:goal => goal).today_task_num %></strong> todo
 				</div>
 		</div>
 	<% end %>
 </div>
+
+
 
 
 
