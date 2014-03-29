@@ -24,4 +24,3 @@
 //= require jquery.minicolors.simple_form
 //= require raphael
 //= require morris
-//= require xray

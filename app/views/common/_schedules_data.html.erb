@@ -10,7 +10,7 @@
 	<% if custom_schedules != nil%>
 		<% custom_schedules.each do |schedule| %>
 			<tr>
-				<td><%= schedule.title %></td>
+				<td><%= link_to(schedule.title , schedule_path(schedule)) %></td>
 				<td><%= truncate(schedule.description , length: 20) %></td>
 				<td><%= (schedule.endtime - schedule.starttime)/3600 %></td>
 				<td><%= schedule.starttime.strftime('%Y-%m-%d %H:%M') %></td>

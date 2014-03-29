@@ -16,25 +16,25 @@ class SchedulePresenter
   end
 
   def today_task_num
-    today_schedules_num = find_schedule.schedules.where("date(starttime) = ?", Date.today).count 
+    find_schedule.schedules.where("date(starttime) = ?", Date.today).count 
   end
 
   def today_data
-      today_schedules = find_schedule.schedules.where("date(starttime) = ?", Date.today).order(:starttime)
+    find_schedule.schedules.where("date(starttime) = ?", Date.today).order(:starttime)
   end
 
   def next_week_data
-    next_week_schedules = find_schedule.schedules.where("date(starttime) > ? and date(starttime) <= ?",
+    find_schedule.schedules.where("date(starttime) > ? and date(starttime) <= ?",
      Date.today , Date.today+7.days).order(:starttime)
   end
 
   def past_data
-    past_schedules = find_schedule.schedules.where("starttime < ? ",Time.now).order(:starttime)
+    find_schedule.schedules.where("starttime < ? ",Time.now).order(:starttime)
     
   end
 
   def future_data
-    past_schedules = find_schedule.schedules.where("starttime > ? ",Time.now).order(:starttime)
+    find_schedule.schedules.where("starttime > ? ",Time.now).order(:starttime)
   end
 
   def chart    
@@ -45,6 +45,7 @@ class SchedulePresenter
       }
       h_all=get_user_goals_schedules_hours_sum(h_starttime,date)
     end
+    #binding.pry
   end
 
   def chart_donut

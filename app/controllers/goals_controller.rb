@@ -3,12 +3,13 @@ class GoalsController < ApplicationController
 	before_action :login_required , :only => [ :show,:new , :create , :edit , :update , :destroy]
 
 	def index
-		@goals = Goal.all
+		#@goals = Goal.all
+		@goals = Goal.paginate(:page => params[:page], :per_page => 9)
 	end
 
 	def show
 		@goal = Goal.find(params[:id])
-		@schedules = @goal.schedules
+		@schedules = @goal.schedules.order(:starttime)
 		get_schedules_data_chart
 		
 		#binding.pry

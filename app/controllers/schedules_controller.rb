@@ -23,6 +23,9 @@ class SchedulesController < ApplicationController
 	def index_for_account
 	end
 
+	def show
+		@schedule = current_user.schedules.find(params[:id])
+	end
 	def new
 
 		@goal = Goal.find(params[:goal_id])

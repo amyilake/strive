@@ -32,7 +32,7 @@ group :doc do
 end
 
 group :development do
-  gem 'xray-rails'
+  #gem 'xray-rails'
   gem 'quiet_assets'
   gem 'pry-rails'
   gem "better_errors"
@@ -43,6 +43,7 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'timecop'
   gem 'gon'
+  gem "letter_opener"
 end
 
 group :development ,  :test  do 
@@ -73,6 +74,7 @@ gem 'jquery-minicolors-rails'
 gem 'jquery-turbolinks'
 gem 'morrisjs-rails'
 gem 'raphael-rails'
+gem 'will_paginate', '~> 3.0.5'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
