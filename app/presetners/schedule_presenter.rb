@@ -55,14 +55,47 @@ class SchedulePresenter
       }
     end
   end
+
+  
+  # find goal index of the user
+  def donut_goal_index
+    if goal != nil
+      goal_index = 0
+      user.goals.each.with_index do |goal_find , index|        
+        goal_index = index
+        break if goal_find == goal  
+      end
+      goal_index
+    else
+      goal_index = -1
+    end
+    #binding.pry
+  end
+
+  def labels
+    if goal != nil
+      [goal.title]
+    else
+      user.goals.map do |goal| 
+        goal.title
+      end
+    end
+  end
   
   private
    def get_user_goals_schedules_hours_sum(h_starttime,date)
-      user.goals.each do |goal|
+      if goal != nil
         h_goal_schedule_hours={
-          goal.title => goal.schedules.where("date(starttime) = ?", date).sum(:hours),
-        }
-        h_starttime=h_starttime.merge(h_goal_schedule_hours) 
+            goal.title => goal.schedules.where("date(starttime) = ?", date).sum(:hours),
+          }
+        h_starttime=h_starttime.merge(h_goal_schedule_hours)
+      else 
+        user.goals.each do |goal|
+          h_goal_schedule_hours={
+            goal.title => goal.schedules.where("date(starttime) = ?", date).sum(:hours),
+          }
+          h_starttime=h_starttime.merge(h_goal_schedule_hours) 
+        end
       end
       h_starttime
    end

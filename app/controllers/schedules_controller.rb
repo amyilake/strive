@@ -1,4 +1,5 @@
 class SchedulesController < ApplicationController
+	include SchedulesHelper
 
 	before_action :login_required 
 	
@@ -6,17 +7,8 @@ class SchedulesController < ApplicationController
 		if params[:goal_id] != nil 
 			@goal = Goal.find(params[:goal_id])
 			render "index_for_calendar"
-		end
-		
-		@schedulePresenter = SchedulePresenter.new(:user => current_user)
-		@chart = @schedulePresenter.chart
-		@chart_donut = @schedulePresenter.chart_donut
-		
-		@today_schedules = @schedulePresenter.today_data
-		@next_week_schedules = @schedulePresenter.next_week_data
-		@past_schedules = @schedulePresenter.past_data
-		@future_schedules = @schedulePresenter.future_data
-		
+		end		
+		get_schedules_data_chart(nil)
 		@schedules = current_user.schedules.order(:starttime)
 	end
 
@@ -145,5 +137,4 @@ class SchedulesController < ApplicationController
 			params.require(:schedule).permit(:hours,:goal_id,:user_id,:title,:description,:starttime,
 				                               :endtime,:status,:all_day,:color,:done)
 		end
-
 end

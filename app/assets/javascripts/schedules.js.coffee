@@ -7,8 +7,8 @@
     element: 'schedules_chart_line'
     data: $('#schedules_chart_line').data('schedules')
     xkey: "starttime"
-    ykeys: ykeys($('#schedules_chart_line').data('goals'))
-    labels: labels($('#schedules_chart_line').data('goals'))
+    ykeys: $('#schedules_chart_line').data('goals')
+    labels: $('#schedules_chart_line').data('goals')
 
 
 
@@ -17,18 +17,18 @@
     element: 'schedules_chart_bar'
     data: $('#schedules_chart_bar').data('schedules')
     xkey: "starttime"
-    ykeys: ykeys($('#schedules_chart_bar').data('goals'))
-    labels: labels($('#schedules_chart_bar').data('goals'))
+    ykeys: $('#schedules_chart_bar').data('goals')
+    labels: $('#schedules_chart_bar').data('goals')
 
 @MorrisDonut= ->
    Morris.Donut
      element: 'schedules_chart_donut'
      data: $('#schedules_chart_donut').data('schedules')
+     
+#labels = (goals) -> 
+#         for i in [0...goals.length]
+#            goals[i].title+"(小時)"
 
-labels = (goals) -> 
-         for i in [0...goals.length]
-            goals[i].title+"(小時)"
-
-ykeys = (goals) ->
-				for i in [0...goals.length]
-            goals[i].title
+#ykeys = (goals) ->
+#				for i in [0...goals.length]
+#               goals[i].title

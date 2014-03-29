@@ -39,10 +39,10 @@
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="tab1_line">
-				<%= content_tag :div, "", id: "schedules_chart_line", data: {schedules: @chart , goals: current_user.goals} %>
+				<%= content_tag :div, "", id: "schedules_chart_line", data: {schedules: @chart , goals: @labels } %>
 			</div>
 			<div class="tab-pane active" id="tab2_bar">
-				<%= content_tag :div, "", id: "schedules_chart_bar", data: {schedules: @chart , goals: current_user.goals} %>
+				<%= content_tag :div, "", id: "schedules_chart_bar", data: {schedules: @chart , goals: @labels} %>
 			</div>
 			<div class="tab-pane active" id="tab3_donut">
 				<%= content_tag :div, "", id: "schedules_chart_donut", data: 
@@ -59,8 +59,9 @@
 
 	MorrisLine();
 	MorrisBar();
-	MorrisDonut();
-
+	var donut = MorrisDonut();
+	if (<%= @donut_goal_index %> != -1 )
+		donut.select(<%= @donut_goal_index %>);
 
 </script>
 

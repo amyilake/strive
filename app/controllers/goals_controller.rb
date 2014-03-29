@@ -1,5 +1,5 @@
 class GoalsController < ApplicationController
-
+	include SchedulesHelper
 	before_action :login_required , :only => [ :show,:new , :create , :edit , :update , :destroy]
 
 	def index
@@ -10,7 +10,7 @@ class GoalsController < ApplicationController
 	def show
 		@goal = Goal.find(params[:id])
 		@schedules = @goal.schedules.order(:starttime)
-		get_schedules_data_chart
+		get_schedules_data_chart(@goal)
 		
 		#binding.pry
 		#gon.products = @chart
@@ -55,12 +55,4 @@ class GoalsController < ApplicationController
 			params.require(:goal).permit(:title,:description,:user_id,:color)
 		end
 
-		def get_schedules_data_chart
-			@schedulePresenter = SchedulePresenter.new(:user => current_user ,:goal => @goal)
-			@chart = @schedulePresenter.chart
-			@today_schedules = @schedulePresenter.today_data
-			@next_week_schedules = @schedulePresenter.next_week_data
-			@past_schedules = @schedulePresenter.past_data
-			@future_schedules = @schedulePresenter.future_data
-		end
 end
